@@ -1,0 +1,43 @@
+html{
+    background-color: #F9FAFB;
+    margin: 0;
+    height: 100%;
+    padding: 20px;
+}
+
+.title{
+    font-size: 24px;
+    font-weight: normal;
+}
+
+.subtitle{
+    font-size: 16px;
+    font-weight: normal;
+    color: #4A5565;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: 25% 70%;
+    justify-content: center;
+}
+
+mat-card{
+    margin: 20px 30px;
+    background-color: #ffffff;
+    padding: 24px;
+}
+
+mat-card-header{
+    font-size: 16px;
+    color: #0a0a0a;
+}
+
+.user_profile{
+    align-items: center;
+}
+
+.avatar{
+    width: 100px;
+    border-radius: 100%;
+}
