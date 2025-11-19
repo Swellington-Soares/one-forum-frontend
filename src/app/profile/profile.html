@@ -9,23 +9,68 @@
             <mat-card-header class="title_card">John Doe</mat-card-header>
             <span>john@email.com</span>
         </mat-card>
+
         <mat-card>
-            <mat-card-header>My activity</mat-card-header>
+            <mat-card-header>Minha atividade</mat-card-header>
+            <div class="activity">
+                <mat-icon class="activity_icon topics">description</mat-icon>
+                <div>
+                    <span class="activity_title">Meus tópicos</span>
+                    <p class="activity_data">20</p>
+                </div>
+            </div>
+
+            <div class="activity">
+                <mat-icon class="activity_icon comment">comment</mat-icon>
+                <div>
+                    <span class="activity_title">Meus comentários</span>
+                    <p class="activity_data">20</p>
+                </div>
+            </div>
+
+            <div class="activity">
+                <mat-icon class="activity_icon likes">thumb_up</mat-icon>
+                <div>
+                    <span class="activity_title">Total de likes</span>
+                    <p class="activity_data">20</p>
+                </div>
+            </div>
         </mat-card>
     </section>
 
     <section class="settings">
         <mat-card>
-            <mat-card-header>Profile information</mat-card-header>
+            <div class="information_header">
+                <mat-card-header>Informações do perfil</mat-card-header>
+                <button matFab extended><mat-icon>edit</mat-icon>Editar</button>
+            </div>
+            <div class="information_body">
+                <div class="div1">
+                    <span>Nome</span>
+                    <p class="information_data">John</p>
+                </div>
+                <div class="div2">
+                    <label>Sobrenome</label>
+                    <p class="information_data">Doe</p>
+                </div>
+                <div class="div3">
+                    <label>E-mail</label>
+                    <p class="information_data">john@email.com</p>
+                </div>
+            </div>
+            <p>O e-mail não pode ser alterado</p>
         </mat-card>
+
         <mat-card>
-            <mat-card-header>Security</mat-card-header>
+            <mat-card-header>Segurança</mat-card-header>
         </mat-card>
+
         <mat-card>
-            <mat-card-header>General settings</mat-card-header>
+            <mat-card-header>Configurações gerais</mat-card-header>
         </mat-card>
+
         <mat-card>
-            <mat-card-header>Logout</mat-card-header>
+            <mat-card-header>Sair</mat-card-header>
         </mat-card>
     </section>
 </div>
