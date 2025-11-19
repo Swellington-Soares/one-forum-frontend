@@ -1,0 +1,119 @@
+.topic-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  padding: 16px 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.topic-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.topic-header mat-card-title {
+  font-size: 20px;
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-delete mat-icon {
+  color: #ef4444;
+}
+
+.tag-list {
+  padding: 8px 0 4px 0;
+  display: flex;
+  gap: 6px;
+}
+
+.tag {
+  background: #eceef2;
+  font-size: 12px;
+}
+
+.topic-text {
+  font-size: 15px;
+  color: #334155;
+  line-height: 1.5;
+  margin: 6px 0 18px 0;
+}
+
+.topic-footer {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar-text {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  color: #334155;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.date {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.date-icon {
+  font-size: 16px;
+  height: 16px;
+  width: 16px;
+}
+
+.topic-stats {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.like-btn {
+  color: #0f172a;
+}
+
+.like-btn.liked {
+  color: #3b82f6;
+}
+
+.answers-info {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #64748b;
+}

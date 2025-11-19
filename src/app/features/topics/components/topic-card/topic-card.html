@@ -1,0 +1,61 @@
+<mat-card class="topic-card" appearance="outlined">
+  <div class="topic-header">
+    <mat-card-title>{{ topic().title || '' }}</mat-card-title>
+
+    <div class="action-buttons">
+      <button mat-stroked-button style="color: #0f172a" class="btn-edit">
+        <mat-icon style="color: #0f172a">edit</mat-icon>
+        Edit
+      </button>
+
+      <button mat-stroked-button style="color: #0f172a" class="btn-delete">
+        <mat-icon>delete</mat-icon>
+        Delete
+      </button>
+    </div>
+  </div>
+
+  <mat-chip-set class="tag-list">
+    <mat-chip class="tag" *ngFor="let tag of topic().categories">{{ tag.name }}</mat-chip>
+  </mat-chip-set>
+
+  <mat-card-content style="margin: 20px 0px">
+    <p class="topic-text">{{ topic().content }}</p>
+  </mat-card-content>
+
+  <div class="topic-footer">
+    <div class="user-info">
+      <div class="avatar-text">{{ topic().user?.profile?.name }}</div>
+
+      <div class="details">
+        <span class="name">{{ topic().user?.name }}</span>
+
+        <div class="date">
+          <mat-icon class="date-icon">calendar_today</mat-icon>
+          <span>{{ topic().createdAt }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-stats">
+      <button
+        mat-stroked-button
+        class="like-btn"
+        [class.liked]="topic().likedByCurrentUser"
+        (click)="toggleLike()"
+        style="color: #0f172a"
+      >
+        <mat-icon style="color: #0f172a">
+          {{ topic().likedByCurrentUser ? 'thumb_up' : 'thumb_up_off_alt' }}
+        </mat-icon>
+
+        {{ topic().likes }}
+      </button>
+
+      <div class="answers-info">
+        <mat-icon>chat_bubble_outline</mat-icon>
+        <span>{{ topic().createdAt }} answers</span>
+      </div>
+    </div>
+  </div>
+</mat-card>

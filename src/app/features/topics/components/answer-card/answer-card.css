@@ -1,0 +1,65 @@
+.card {
+  background: white;
+  border: 1px solid #e5e7eb; /* cinza suave */
+  padding: 16px 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  color: #334155;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-weight: 600;
+  font-size: 15px;
+  color: #0f172a;
+}
+
+.time {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.text {
+  margin-top: 6px;
+  margin-left: 50px;
+  font-size: 15px;
+  color: #0f172a;
+}
+
+.delete-btn mat-icon {
+  color: #ef4444; /* vermelho */
+}
+
+.buttons{
+    
+}
