@@ -1,4 +1,4 @@
-import { Component, inject, signal, WritableSignal } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, signal, WritableSignal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
@@ -11,12 +11,14 @@ import { ActivatedRoute } from '@angular/router';
 import { User } from '../../core/models/user';
 import { userService } from '../../core/services/user';
 import { EditDialog } from '../../components/edit-dialog/edit-dialog';
+import { Topbar } from "../../components/topbar/topbar";
 
 @Component({
   selector: 'app-profile',
-  imports: [MatCardModule, MatIconModule, MatButtonModule, MatInputModule, MatSlideToggleModule, MatDivider, MatSelectModule],
+  imports: [MatCardModule, MatIconModule, MatButtonModule, MatInputModule, MatSlideToggleModule, MatDivider, MatSelectModule, Topbar],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class Profile {
   private readonly route = inject(ActivatedRoute)

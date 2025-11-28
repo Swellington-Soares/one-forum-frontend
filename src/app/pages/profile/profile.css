@@ -2,18 +2,19 @@ html{
     background-color: #F9FAFB;
     margin: 0;
     height: 100%;
-    padding: 20px;
 }
 
 .title{
     font-size: 24px;
     font-weight: normal;
+    margin: 20px;
 }
 
 .subtitle{
     font-size: 16px;
     font-weight: normal;
     color: #4A5565;
+    margin: 20px;
 }
 
 .container{
