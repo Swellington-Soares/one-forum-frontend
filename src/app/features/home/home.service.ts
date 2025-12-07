@@ -1,13 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { computed, effect, inject, Injectable, signal, WritableSignal } from '@angular/core';
+import { computed, inject, Injectable } from '@angular/core';
 import { Topic } from '../../core/models/topics';
 import { environment } from '../../../environments/environment';
 import { TopicQueryEntity } from './model/topic-query-entity.model';
-import { Pageable } from './model/pageable.model';
-import { StatusFlag } from './model/status-flag.model';
 import { AuthService } from '../../core/services/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, debounceTime, distinctUntilChanged, filter, shareReplay, switchMap } from 'rxjs';
+import { Router } from '@angular/router';
+import { BehaviorSubject, debounceTime, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -19,23 +17,17 @@ export class HomeService {
   
   private authService = inject(AuthService);
   private router = inject(Router);
-  private route = inject(ActivatedRoute);
 
   private httpClient: HttpClient;
   private apiUrl = environment.apiBaseUrl + "/topics";
-  private loggedUserId = computed(() => this.authService.currentUser()?.id); // TODO: change to retrieve data from AuthService
-
-  responseStatusFlag = signal(StatusFlag.OK);
+  private loggedUserId = computed(() => this.authService.currentUser()?.id);
 
   private filtersSubject = new BehaviorSubject<TopicQueryEntity>({});
   filters$ = this.filtersSubject.asObservable();
 
   reqResults$ = this.filters$.pipe(
     debounceTime(300),
-    distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
     switchMap(filters => {
-      this.responseStatusFlag.set(StatusFlag.LOADING);
-      
       let queryParams = new URLSearchParams();
 
       queryParams.append("authorId", filters.mine ? this.loggedUserId()?.toString() || '' : '');
@@ -57,23 +49,10 @@ export class HomeService {
           }
         }>(`${this.apiUrl}?${queryParams.toString()}`)
     }),
-    shareReplay(1)
   )
 
   constructor(httpClient: HttpClient) {
     this.httpClient = httpClient;
-
-    this.route.queryParams.subscribe(params => {
-      this.filtersSubject.next({
-        search: params['search'] || '',
-        category: +params['category'] || undefined,
-        moreLiked: params['moreLiked'] === 'true',
-        mine: params['mine'] === 'true',
-        page: +params['page'] || 0,
-        size: +params['size'] || 10,
-        sort: params['sort'] || 'createdAt,desc'
-      })
-    })
   }
 
   setFilters(filters: TopicQueryEntity) {
@@ -81,11 +60,20 @@ export class HomeService {
       filters.page = 0;
     }
 
+    this.filtersSubject.next({
+      ...this.filtersSubject.getValue(),
+      ...filters
+    });
+
     this.router.navigate([], {
       queryParams: filters,
       queryParamsHandling: "merge",
       replaceUrl: true,
     })
+  }
+
+  refreshResults() {
+    this.filtersSubject.next(this.filtersSubject.getValue());
   }
 
 }

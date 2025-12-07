@@ -59,7 +59,7 @@ export class Login {
       next: async () => {
         this.loading.set(false);
         this.snack.open('Login realizado com sucesso!', 'Fechar', { duration: 2500 });
-        await this.router.navigate(['/home']);
+        await this.router.navigate(['/']);
       },
       error: () => {
         this.loading.set(false);

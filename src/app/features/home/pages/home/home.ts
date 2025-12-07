@@ -6,6 +6,10 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { HomeService } from '../../home.service';
 import { SearchBar } from '../../components/search-bar/search-bar';
 import { AsyncPipe } from '@angular/common';
+import { TopicDialog } from '../../../../shared/components/topic-dialog/topic-dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { TopicService } from '../../../../core/services/topics.service';
+import { CategoryService } from '../../../../core/services/category.service';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +18,7 @@ import { AsyncPipe } from '@angular/common';
     MatInputModule, 
     TopicList,
     SearchBar,
-    AsyncPipe
+    AsyncPipe,
   ],
   templateUrl: './home.html',
   styleUrl: './home.css',
@@ -22,12 +26,41 @@ import { AsyncPipe } from '@angular/common';
 export class Home {
   authService = inject(AuthService);
   homeService = inject(HomeService);
+  dialogService = inject(MatDialog);
+  topicService = inject(TopicService);
+  categoryService = inject(CategoryService);
 
   ngOnInit() {
   }
 
+  logoutClick() {
+    this.authService.logout();
+  }
+
   createTopicBtnClick() {
-    console.log("CreateTopicBtn has been clicked!");
-    // TODO: Add create-topic-dialog call
+    this.dialogService.open(TopicDialog, {
+      
+      width: 'auto',
+      maxWidth: 'none',
+      data: {
+        mode: 'create'
+      }
+    }).afterClosed().subscribe(result => {
+      if (!result) {
+        return;
+      }
+
+      this.topicService.createTopic({
+        content: result.content,
+        categories: result.categories,
+        title: result.title
+      }).subscribe({
+        complete: () => {
+          this.homeService.refreshResults();
+          this.categoryService.reloadCategories();
+        }
+      });
+    });
+    
   }
 }

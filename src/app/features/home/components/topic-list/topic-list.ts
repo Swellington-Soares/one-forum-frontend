@@ -1,4 +1,4 @@
-import { Component, computed, inject, Signal, signal, WritableSignal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { TopicCard } from '../topic-card/topic-card';
 import { MatAnchor, MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../../../../core/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 
 @Component({
@@ -46,36 +47,69 @@ export class TopicList {
   activeSort = signal("date");
   activeAuthorFilter = signal("all");
 
-  statusFlag = computed(() => this.homeService.responseStatusFlag());
+  isLogged = toSignal(this.authService.isLogged$);
 
+  statusFlag = signal(StatusFlag.LOADING);
+
+  
+  private queryParamsSubscription?: Subscription;
   private initFirstReqSubscription?: Subscription;
   private initUrlCheckSubscription?: Subscription;
 
   ngOnInit() {
-    this.initFirstReqSubscription = this.homeService.reqResults$.subscribe(data => {
-      const totalPages = data.totalPages;
-      const safePage = Math.max(0, Math.min(data.pageable.pageNumber, totalPages - 1));
-      const safeSize = Math.min(data.pageable.pageSize, 50);
 
-      const currentParams = this.route.snapshot.queryParams;
+    const currentParams = this.route.snapshot.queryParams;
 
-      if (
-        +currentParams['page'] !== safePage ||
-        +currentParams['size'] !== safeSize
-      ) {
-        this.router.navigate([], {
-            queryParams: {page: safePage, size: safeSize},
-            queryParamsHandling: "merge",
-            replaceUrl: true
-          },  
-        )
-      }
+    let mine = currentParams['mine'];
 
-      this.topics = data.content || [];
-      this.totalElements = data.totalElements || 0;
-      this.pageIndex = data.pageable.pageNumber;
-      this.pageSize = data.pageable.pageSize;
-      this.homeService.responseStatusFlag.set(StatusFlag.OK);
+    if (mine && !this.isLogged()) {
+      this.router.navigate([], {
+          queryParams: {mine: undefined},
+          queryParamsHandling: "merge",
+          replaceUrl: true
+        },  
+      )
+
+      mine = undefined;
+    }
+
+    this.homeService.setFilters({
+      search: currentParams['search'] || undefined,
+      category: +currentParams['category'] || undefined,
+      moreLiked: currentParams['moreLiked'] === 'true' ? true : undefined,
+      mine: mine === 'true' ? true : undefined,
+      page: +currentParams['page'] || 0,
+      size: +currentParams['size'] || 10,
+      sort: currentParams['sort'] || undefined
+    })
+
+    this.initFirstReqSubscription = this.homeService.reqResults$.subscribe({
+      next: data => {
+        const totalPages = data.totalPages;
+        const safePage = Math.max(0, Math.min(data.pageable.pageNumber, totalPages - 1));
+        const safeSize = Math.min(data.pageable.pageSize, 50);
+
+        const currentParams = this.route.snapshot.queryParams;
+
+        if (
+          +currentParams['page'] !== safePage ||
+          +currentParams['size'] !== safeSize
+        ) {
+          this.router.navigate([], {
+              queryParams: {page: safePage, size: safeSize},
+              queryParamsHandling: "merge",
+              replaceUrl: true
+            },  
+          )
+        }
+
+        this.topics = data.content || [];
+        this.totalElements = data.totalElements || 0;
+        this.pageIndex = data.pageable.pageNumber;
+        this.pageSize = data.pageable.pageSize;
+        this.statusFlag.set(StatusFlag.OK);
+      },
+      error: err => this.statusFlag.set(StatusFlag.ERROR)
     })
     this.initUrlCheckSubscription = this.homeService.filters$.subscribe(filters => {
       this.activeAuthorFilter.set(filters.mine ? 'user' : "all");
@@ -86,6 +120,7 @@ export class TopicList {
   ngOnDestroy() {
     this.initFirstReqSubscription?.unsubscribe();
     this.initUrlCheckSubscription?.unsubscribe();
+    this.queryParamsSubscription?.unsubscribe();
   }
   
   updateSortList(value: "date" | "moreLiked") {

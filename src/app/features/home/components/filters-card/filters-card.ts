@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, QueryList, signal, ViewChildren } from '@angular/core';
+import { Component, DestroyRef, ElementRef, inject, QueryList, signal, ViewChildren } from '@angular/core';
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { CategoryService } from '../../../../core/services/category.service';
@@ -9,7 +9,8 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { Category } from '../../model/category.model';
 import { HomeService } from '../../home.service';
 import { StatusFlag } from '../../model/status-flag.model';
-import { Subscription } from 'rxjs';
+import { Subscription, tap } from 'rxjs';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-filters-card',
@@ -27,29 +28,33 @@ import { Subscription } from 'rxjs';
 export class FiltersCard {
   private readonly categoryService = inject(CategoryService);
   private readonly homeService = inject(HomeService);
+  private readonly destroyRef = inject(DestroyRef);
   readonly statusFlagEnumm = StatusFlag;
 
-  statusFlag = signal(StatusFlag.OK);
-  allCategories = signal<Category[]>([])
+  statusFlag = signal(StatusFlag.LOADING);
+  
+  allCategories = toSignal(
+    this.categoryService.allCategories$.pipe(
+      tap({
+        next: categoryList => {
+          this.statusFlag.set(StatusFlag.OK);
+          return categoryList.sort((a, b) => a.name > b.name ? 1 : b.name > a.name ? -1 : 0);
+        },
+        error: () => this.statusFlag.set(StatusFlag.ERROR)
+      }),
+      takeUntilDestroyed(this.destroyRef)
+    ),
+    { initialValue: [] as Category[] }
+  );
 
-  selectedCategory: number | null = null;
+  private filtersSignal = toSignal(this.homeService.filters$);
 
   @ViewChildren('categoryOpt') categoryRefList!: QueryList<MatChipOption>;
-  
-  private categoryListChangesSubscription?: Subscription;
-  private initSelectedChipSubscription?: Subscription;
-
-  ngOnInit() {
-    this.loadCategories();
-    this.homeService.filters$.subscribe(state => {
-      if (state.category) {
-        this.allCategories
-      }
-    })
-  }
 
   ngAfterViewInit() {
-    this.categoryListChangesSubscription = this.categoryRefList.changes.subscribe(
+    this.categoryRefList.changes.pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(
       (newList: QueryList<MatChipOption>) => {        
         this.selectChipFromUrlFilter();
       }
@@ -58,11 +63,6 @@ export class FiltersCard {
     if (this.categoryRefList.length > 0) {
       this.selectChipFromUrlFilter();
     }
-  }
-
-  ngOnDestroy() {
-    this.categoryListChangesSubscription?.unsubscribe();
-    this.initSelectedChipSubscription?.unsubscribe();
   }
 
   selectChipById(categoryId: number) {
@@ -79,24 +79,11 @@ export class FiltersCard {
   }
 
   selectChipFromUrlFilter() {
-    this.initSelectedChipSubscription = this.homeService.filters$.subscribe(data => {
-      if (data.category !== null && data.category !== undefined) {
-        this.selectChipById(data.category);
-      }
-    });
-  }
-
-  loadCategories() {
-    this.statusFlag.set(StatusFlag.LOADING);
-    this.categoryService.getAllCategories().subscribe({
-      next: categoriesList => {
-        this.allCategories.set(categoriesList);
-        this.statusFlag.set(StatusFlag.OK);
-      },
-      error: err => {
-        this.statusFlag.set(StatusFlag.ERROR);
-      }
-    });
+    const filters = this.filtersSignal();
+    
+    if (filters?.category !== null && filters?.category !== undefined) {
+      this.selectChipById(filters.category);
+    }
   }
 
   selectFilter(event: MatChipSelectionChange, categoryId: number) {
