@@ -1,6 +1,4 @@
-import { Pageable } from "./pageable.model";
-
-export interface TopicQueryEntity {
+export interface TopicListQueryEntity {
   category?: number,
   search?: string,
   mine?: boolean,

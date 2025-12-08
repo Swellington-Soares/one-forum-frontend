@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable } from '@angular/core';
 import { Topic } from '../../core/models/topics';
 import { environment } from '../../../environments/environment';
-import { TopicQueryEntity } from './model/topic-query-entity.model';
+import { TopicListQueryEntity } from './model/topic-query-entity.model';
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { BehaviorSubject, debounceTime, switchMap } from 'rxjs';
@@ -22,7 +22,7 @@ export class HomeService {
   private apiUrl = environment.apiBaseUrl + "/topics";
   private loggedUserId = computed(() => this.authService.currentUser()?.id);
 
-  private filtersSubject = new BehaviorSubject<TopicQueryEntity>({});
+  private filtersSubject = new BehaviorSubject<TopicListQueryEntity>({});
   filters$ = this.filtersSubject.asObservable();
 
   reqResults$ = this.filters$.pipe(
@@ -55,7 +55,7 @@ export class HomeService {
     this.httpClient = httpClient;
   }
 
-  setFilters(filters: TopicQueryEntity) {
+  setFilters(filters: TopicListQueryEntity) {
     if (filters.page == null) {
       filters.page = 0;
     }

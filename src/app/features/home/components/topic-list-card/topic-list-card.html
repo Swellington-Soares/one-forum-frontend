@@ -1,10 +1,12 @@
 <mat-card (click)="this.redirectTo()">
-    <div class="stats-container">
-        <div class="stat">
-            <span class="value">{{this.topic().likes}}</span>
-            <span class="label">curtidas</span>
+    @if (!isHandheld()) {
+        <div class="stats-container">
+            <div class="stat">
+                <span class="value">{{this.topic().likes}}</span>
+                <span class="label">curtidas</span>
+            </div>
         </div>
-    </div>
+    }
     <div class="card-content-container">
         <mat-card-header>
             <mat-card-title>{{this.topic().title}}</mat-card-title>
@@ -33,6 +35,14 @@
                 <span> · </span>
                 <span>{{this.createdAt().toLocaleDateString()}}</span>
             </div>
+            @if (isHandheld()) {
+                <div class="stats-container">
+                    <div class="stat">
+                        <span class="value">{{this.topic().likes}}</span>
+                        <span class="label">curtidas</span>
+                    </div>
+                </div>
+            }
         </mat-card-footer>
     </div>
 </mat-card>

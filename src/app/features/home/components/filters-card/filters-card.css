@@ -4,42 +4,11 @@ ul {
     padding: 0;
 }
 
-mat-card {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-
+mat-expansion-panel {
+    background: none;
+    box-shadow: none !important;
     background: #FFFFFF;
-    box-shadow: none;
     border: 1px solid hsla(0, 0%, 0%, 0.1);
-}
-
-mat-card-header {
-    padding: 0;
-}
-
-mat-card-title {
-    width: 100%;
-}
-
-mat-card-content {
-    padding: 0;
-}
-
-mat-card-content:last-child {
-    padding: 0;
-}
-
-.filters-container {
-    max-width: 30rem;
-}
-
-.card-filter-title {
-    margin-bottom: 0.5rem;
-
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
 }
 
 .filter-title {

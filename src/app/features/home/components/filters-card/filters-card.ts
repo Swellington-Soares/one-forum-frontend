@@ -1,16 +1,18 @@
 import { Component, DestroyRef, ElementRef, inject, QueryList, signal, ViewChildren } from '@angular/core';
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
-import { CategoryService } from '../../../../core/services/category.service';
+import { MatExpansionModule } from "@angular/material/expansion";
+import { CategoryService } from '../../category.service';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatChipOption, MatChipSelectionChange, MatChipsModule } from "@angular/material/chips";
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from "@angular/material/form-field";
-import { Category } from '../../model/category.model';
+import { Category } from '../../../../core/models/category.model';
 import { HomeService } from '../../home.service';
 import { StatusFlag } from '../../model/status-flag.model';
-import { Subscription, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-filters-card',
@@ -20,7 +22,8 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
     MatProgressSpinnerModule,
     MatChipsModule, 
     MatButtonModule, 
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatExpansionModule,
   ],
   templateUrl: './filters-card.html',
   styleUrl: './filters-card.css',
@@ -30,7 +33,9 @@ export class FiltersCard {
   private readonly homeService = inject(HomeService);
   private readonly destroyRef = inject(DestroyRef);
   readonly statusFlagEnumm = StatusFlag;
+  private readonly breakpointObserver = inject(BreakpointObserver);
 
+  isHandheld = signal(false);
   statusFlag = signal(StatusFlag.LOADING);
   
   allCategories = toSignal(
@@ -48,6 +53,22 @@ export class FiltersCard {
   );
 
   private filtersSignal = toSignal(this.homeService.filters$);
+  
+  ngOnInit() {
+    this.breakpointObserver.observe(
+      [Breakpoints.XSmall, Breakpoints.Small]
+    )
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe(data => {
+      if (data.matches) {
+        this.isHandheld.set(true);
+        console.log(this.isHandheld())
+        return;
+      }
+      this.isHandheld.set(false);
+      console.log(this.isHandheld())
+    })
+  }
 
   @ViewChildren('categoryOpt') categoryRefList!: QueryList<MatChipOption>;
 

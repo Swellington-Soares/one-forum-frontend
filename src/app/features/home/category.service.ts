@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { DestroyRef, inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { BehaviorSubject, Observable, switchMap } from 'rxjs';
-import { Category } from '../../features/home/model/category.model';
+import { Category } from '../../core/models/category.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Injectable({

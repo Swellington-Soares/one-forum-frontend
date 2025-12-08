@@ -3,6 +3,10 @@
     gap: 1rem;
 }
 
+.filters-container {
+    max-width: 20rem;
+}
+
 .main-content-container {
     width: 100%;
 
@@ -17,6 +21,8 @@
 }
 
 .ownership-filter-toggle {
+    width: fit-content;
+
     display: flex;
     background: #ECECF0;
     border-radius: 2rem;
@@ -45,4 +51,22 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+@media (max-width: 560px) {
+    .top-actions {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+}
+
+@media (max-width: 959px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .filters-container {
+        max-width: 100%;
+    }
 }

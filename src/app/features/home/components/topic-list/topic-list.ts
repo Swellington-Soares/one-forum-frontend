@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { TopicCard } from '../topic-card/topic-card';
+import { TopicListCard } from '../topic-list-card/topic-list-card';
 import { MatAnchor, MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
@@ -19,7 +19,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-topic-list',
   imports: [
-    TopicCard,
+    TopicListCard,
     MatAnchor,
     MatButtonModule,
     MatCardModule,

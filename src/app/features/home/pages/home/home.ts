@@ -9,7 +9,7 @@ import { AsyncPipe } from '@angular/common';
 import { TopicDialog } from '../../../../shared/components/topic-dialog/topic-dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { TopicService } from '../../../../core/services/topics.service';
-import { CategoryService } from '../../../../core/services/category.service';
+import { CategoryService } from '../../category.service';
 
 @Component({
   selector: 'app-home',

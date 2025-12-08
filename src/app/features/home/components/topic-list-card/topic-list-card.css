@@ -1,4 +1,6 @@
 mat-card {
+    width: 100%;
+
     display: flex;
     flex-direction: row;
     padding: 1rem;
@@ -68,6 +70,7 @@ mat-card-footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 
     border-radius: 50%;
     overflow: hidden;
@@ -79,4 +82,29 @@ mat-card-footer {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+@media (max-width: 959px) {
+    .stats-container {
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        padding-top: 1rem;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
+    .stat {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .stat .value {
+        font-size: 1rem;
+    }
+
+    mat-card-footer {
+        flex-direction: column;
+        gap: 1rem;
+    }
 }
