@@ -28,6 +28,11 @@ export const routes: Routes = [
     loadComponent: () => import('./features/auth/pages/login/login').then((m) => m.Login),
   },
   {
+    path: 'confirm-account',
+    loadComponent: () =>
+      import('./pages/confirm-account-alert/confirm-account-alert').then((m) => m.ConfirmAccountAlert),
+  },
+  {
     path: '**',
     redirectTo: ''
   }

@@ -61,8 +61,21 @@ export class Login {
         this.snack.open('Login realizado com sucesso!', 'Fechar', { duration: 2500 });
         await this.router.navigate(['/']);
       },
-      error: () => {
+      error: async (e) => {
+        const {error} = e;
         this.loading.set(false);
+        if (error.status === 403) {
+          if (error.type === 'ACCOUNT_LOCKED') {
+            await this.router.navigate(['/confirm-account'], {
+              state: {
+                email: email,
+                isLocked: true
+               }
+            });
+            return;
+          }
+        }
+
         this.error.set('Invalid email or password.');
         this.snack.open('Email ou senha inválidos.', 'Fechar', { duration: 3000 });
       }

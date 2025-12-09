@@ -70,6 +70,10 @@ export class AuthService {
     );
   }
 
+  requestConfirmAccount(token: string): Observable<{status: string, message: string}> {
+    return this.http.post<{status: string, message: string}>(`${this.baseUrl}/auth/confirm-account`, { token });
+  }
+
   logout(): void {
     this.tokenService.clear();
     this.isLoggedSubject.next(false);
