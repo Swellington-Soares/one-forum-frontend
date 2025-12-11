@@ -1,0 +1,46 @@
+<div class="bg-page">
+  <div class="card">
+    <div class="card-content">
+      @if (!notIsConfirmed()) {
+      <div class="icon-circle icon-success">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-12 h-12 text-green-600"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+        </svg>
+      </div>
+
+      <h1 class="title">E-mail confirmado!</h1>
+      <p class="text">
+        Seu e-mail foi verificado com sucesso. Agora você já pode aproveitar todos os recursos.
+      </p>
+
+      } @else {
+
+      <div class="icon-circle icon-error">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-12 h-12 text-red-600"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </div>
+
+      <h1 class="title">Você precisa ativar sua conta.</h1>
+      <p class="text">Se não recebeu o e-mail de ativação, clique no botão abaixo para receber.</p>
+
+      <button class="btn" (click)="resendConfirmationEmail()">RECEBER E-MAIL DE CONFIRMAÇÃO</button>
+
+      }
+    </div>
+  </div>
+</div>

@@ -4,9 +4,9 @@ import { MatAnchor, MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
-import { HomeService } from '../../home.service';
+import { HomeService } from '../../../../core/services/home.service';
 import { FiltersCard } from "../filters-card/filters-card";
-import { StatusFlag } from '../../model/status-flag.model';
+import { StatusFlag } from '../../../../core/models/status-flag.model';
 import { Topic } from '../../../../core/models/topics';
 import { MatPaginatorModule, PageEvent } from "@angular/material/paginator";
 import { Subscription } from 'rxjs';
@@ -20,7 +20,6 @@ import { toSignal } from '@angular/core/rxjs-interop';
   selector: 'app-topic-list',
   imports: [
     TopicListCard,
-    MatAnchor,
     MatButtonModule,
     MatCardModule,
     MatIconModule,

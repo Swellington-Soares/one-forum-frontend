@@ -1,10 +1,10 @@
 mat-toolbar{
-    border-bottom: 1px solid hsla(0, 0%, 0%, 0.1);
+    border-bottom: 1px solid var(--border-color);
     width: 100%;
     padding: 1rem 0;
     justify-content: center;
-
-    background: #FFFFFF;
+    background: var(--bg-secondary);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .container {
@@ -14,6 +14,21 @@ mat-toolbar{
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.theme-toggle {
+    color: var(--text-primary);
+    transition: color 0.3s ease;
+}
+
+.theme-toggle:hover {
+    background-color: var(--bg-tertiary);
 }
 
 .visually-hiden {
@@ -54,9 +69,12 @@ mat-toolbar{
     
     border-radius: 50%;
 
-    background: #DDDDDD;
+    background: var(--bg-tertiary);
 
     overflow: hidden;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .pfp-container img {
@@ -65,11 +83,7 @@ mat-toolbar{
     object-fit: cover;
 }
 
-.pfp-container {
-    text-decoration: none;
-    color: #000000;
-}
-
 mat-icon {
-    color: #333333;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
 }

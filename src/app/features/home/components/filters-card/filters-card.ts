@@ -1,13 +1,13 @@
 import { Component, DestroyRef, inject, QueryList, signal, ViewChildren } from '@angular/core';
 import { MatIconModule } from "@angular/material/icon";
 import { MatExpansionModule } from "@angular/material/expansion";
-import { CategoryService } from '../../category.service';
+import { CategoryService } from '../../../../core/services/category.service';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatChipOption, MatChipSelectionChange, MatChipsModule } from "@angular/material/chips";
 import { MatButtonModule } from '@angular/material/button';
 import { Category } from '../../../../core/models/category.model';
-import { HomeService } from '../../home.service';
-import { StatusFlag } from '../../model/status-flag.model';
+import { HomeService } from '../../../../core/services/home.service';
+import { StatusFlag } from '../../../../core/models/status-flag.model';
 import { tap } from 'rxjs';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';

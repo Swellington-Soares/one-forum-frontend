@@ -1,34 +1,30 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable } from '@angular/core';
-import { Topic } from '../../core/models/topics';
-import { environment } from '../../../environments/environment';
-import { TopicListQueryEntity } from './model/topic-query-entity.model';
-import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { BehaviorSubject, debounceTime, switchMap } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { Topic } from '../models/topics';
+import { TopicListQueryEntity } from '../models/topic-query-entity.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HomeService {
-  getCurrentFilterCategoryId() {
-    return this.filters$.subscribe(data => data.category)
-  }
-  
-  private authService = inject(AuthService);
-  private router = inject(Router);
+  private readonly http = inject(HttpClient);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
-  private httpClient: HttpClient;
-  private apiUrl = environment.apiBaseUrl + "/topics";
-  private loggedUserId = computed(() => this.authService.currentUser()?.id);
+  private readonly apiUrl = `${environment.apiBaseUrl}/topics`;
+  private readonly loggedUserId = computed(() => this.authService.currentUser()?.id);
 
-  private filtersSubject = new BehaviorSubject<TopicListQueryEntity>({});
-  filters$ = this.filtersSubject.asObservable();
+  private readonly filtersSubject = new BehaviorSubject<TopicListQueryEntity>({});
+  readonly filters$ = this.filtersSubject.asObservable();
 
-  reqResults$ = this.filters$.pipe(
+  readonly reqResults$ = this.filters$.pipe(
     debounceTime(300),
     switchMap(filters => {
-      let queryParams = new URLSearchParams();
+      const queryParams = new URLSearchParams();
 
       queryParams.append("authorId", filters.mine ? this.loggedUserId()?.toString() || '' : '');
       queryParams.append("categoryId", filters.category?.toString() || "");
@@ -38,24 +34,23 @@ export class HomeService {
       queryParams.append("size", filters.size?.toString() || "10");
       queryParams.append("sort", filters.moreLiked ? "" : filters.sort?.toString() || "createdAt,desc");
 
-      return this.httpClient
-        .get<{
-          content: Topic[],
-          totalElements: number,
-          totalPages: number,
-          pageable: {
-            pageNumber: number,
-            pageSize: number
-          }
-        }>(`${this.apiUrl}?${queryParams.toString()}`)
+      return this.http.get<{
+        content: Topic[];
+        totalElements: number;
+        totalPages: number;
+        pageable: {
+          pageNumber: number;
+          pageSize: number;
+        };
+      }>(`${this.apiUrl}?${queryParams.toString()}`);
     }),
-  )
+  );
 
-  constructor(httpClient: HttpClient) {
-    this.httpClient = httpClient;
+  getCurrentFilterCategoryId() {
+    return this.filters$.subscribe(data => data.category);
   }
 
-  setFilters(filters: TopicListQueryEntity) {
+  setFilters(filters: TopicListQueryEntity): void {
     if (filters.page == null) {
       filters.page = 0;
     }
@@ -69,11 +64,10 @@ export class HomeService {
       queryParams: filters,
       queryParamsHandling: "merge",
       replaceUrl: true,
-    })
+    });
   }
 
-  refreshResults() {
+  refreshResults(): void {
     this.filtersSubject.next(this.filtersSubject.getValue());
   }
-
 }

@@ -1,47 +1,46 @@
-import { Component, inject } from '@angular/core';
-import { MatButtonModule } from "@angular/material/button";
-import { TopicList } from "../../components/topic-list/topic-list";
-import { AuthService } from '../../../../core/services/auth.service';
-import { HomeService } from '../../home.service';
-import { SearchBar } from '../../components/search-bar/search-bar';
 import { AsyncPipe } from '@angular/common';
-import { TopicDialog } from '../../../../shared/components/topic-dialog/topic-dialog';
+import { Component, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIcon } from '@angular/material/icon';
+import { AuthService } from '../../../../core/services/auth.service';
+import { CategoryService } from '../../../../core/services/category.service';
+import { HomeService } from '../../../../core/services/home.service';
 import { TopicService } from '../../../../core/services/topics.service';
-import { CategoryService } from '../../category.service';
-import { MatIcon } from "@angular/material/icon";
+import { TopicDialog } from '../../../../shared/components/topic-dialog/topic-dialog';
+import { SearchBar } from '../../components/search-bar/search-bar';
+import { TopicList } from '../../components/topic-list/topic-list';
 
 @Component({
   selector: 'app-home',
   imports: [
-    MatButtonModule,
-    TopicList,
-    SearchBar,
     AsyncPipe,
-    MatIcon
-],
+    MatButtonModule,
+    MatIcon,
+    SearchBar,
+    TopicList,
+  ],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home {
-  authService = inject(AuthService);
-  homeService = inject(HomeService);
-  dialogService = inject(MatDialog);
-  topicService = inject(TopicService);
-  categoryService = inject(CategoryService);
+  protected readonly authService = inject(AuthService);
+  private readonly homeService = inject(HomeService);
+  private readonly dialogService = inject(MatDialog);
+  private readonly topicService = inject(TopicService);
+  private readonly categoryService = inject(CategoryService);
 
-  ngOnInit() {
-  }
 
-  createTopicBtnClick() {
-    this.dialogService.open(TopicDialog, {
-      
+  openCreateTopicDialog(): void {
+    const dialogRef = this.dialogService.open(TopicDialog, {
       width: 'auto',
       maxWidth: 'none',
       data: {
         mode: 'create'
       }
-    }).afterClosed().subscribe(result => {
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
       if (!result) {
         return;
       }
@@ -57,6 +56,5 @@ export class Home {
         }
       });
     });
-    
   }
 }
