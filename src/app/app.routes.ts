@@ -27,6 +27,12 @@ const requireAuthentication = () => {
 };
 
 export const routes: Routes = [
+   {
+  path: 'publicprofile/:id',
+  loadComponent: () =>
+    import('./pages/public-profile/public-profile').then((m) => m.PublicProfile),
+  title: 'Public Profile'
+  },
   {
     path: 'splash',
     loadComponent: () => import('./features/splash/splash').then((m) => m.Splash),
