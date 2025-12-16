@@ -13,19 +13,19 @@
       [attr.aria-label]="'Tópico: ' + (topic().title || '')">
     </topic-card>
   </section>
+  
+  <section aria-label="Formulário de resposta">
+    <comment-form
+      role="form"
+      (submitComment)="onSubmitComment($event)">
+    </comment-form>
+  </section>
 
   <section aria-label="Lista de respostas" [attr.aria-live]="'polite'">
     <comments-container
       [comments]="comments()"
       (deleteComment)="removeComment($event)">
     </comments-container>
-  </section>
-
-  <section aria-label="Formulário de resposta">
-    <comment-form
-      role="form"
-      (submitComment)="onSubmitComment($event)">
-    </comment-form>
   </section>
 </main>
  
