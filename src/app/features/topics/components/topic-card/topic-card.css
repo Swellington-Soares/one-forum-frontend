@@ -90,14 +90,19 @@
 
 .name {
   font-weight: 600;
-  color: #0f172a;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.name:hover {
+  color: var(--text-accent);
 }
 
 .date {
   display: flex;
   align-items: center;
   gap: 4px;
-  color: #64748b;
+  color: var(--text-secondary);
   font-size: 13px;
 }
 
@@ -114,16 +119,16 @@
 }
 
 .like-btn {
-  color: #0f172a;
+  color: var(--text-primary);
 }
 
 .like-btn.liked {
-  color: #3b82f6;
+  color: var(--text-accent);
 }
 
 .comments-info {
   display: flex;
   align-items: center;
   gap: 4px;
-  color: #64748b;
+  color: var(--text-secondary);
 }

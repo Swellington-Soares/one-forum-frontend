@@ -1,6 +1,6 @@
 .container {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
 
   .left {
     width: 100%;
@@ -8,19 +8,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #fff;
+    background: var(--bg-primary);
 
     .box {
       width: 100%;
       max-width: 380px;
 
       h1 {
-        color: #0f172a;
+        color: var(--text-primary);
         margin-bottom: 8px;
       }
 
       .subtitle {
-        color: #666;
+        color: var(--text-secondary);
         margin-bottom: 24px;
       }
 
@@ -43,8 +43,13 @@
       .login-text {
         margin-top: 20px;
         text-align: center;
-        color: #666;
+        color: var(--text-secondary);
       }
+    }
+
+    @media (max-width: 992px) {
+      max-width: none;
+      padding: 1rem;
     }
   }
 
@@ -57,7 +62,7 @@
     display: none;
 
     @media (min-width: 992px) {
-      display: block;
+      display: flex;
     }
 
     .overlay {
@@ -93,22 +98,22 @@
     width: 130px;
     height: 130px;
     border-radius: 50%;
-    border: 2px solid #ccc;
+    border: 2px solid var(--bg-tertiary);
     object-fit: cover;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 14px;
-    background: #f0f0f0;
-    color: #666;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
     text-align: center;
   }
 }
 
 button[type="submit"],
 .btn-primary {
-  background: #0f172a;
-  color: white;
+  background: var(--button-primary-bg);
+  color: var(--button-primary-text);
   padding: 6px 18px;
   border-radius: 8px;
   font-size: 14px;
@@ -126,7 +131,7 @@ button[type="submit"],
 
 button[type="submit"]:hover,
 .btn-primary:hover {
-  background: #1e293b;
+  background: var(--button-secondary-bg);
 }
 
 button[type="submit"]:disabled,
@@ -143,7 +148,7 @@ button[type="submit"] mat-icon,
 .login-text button {
   background: transparent;
   border: none;
-  color: #0f172a;
+  color: var(--button-primary-text);
   cursor: pointer;
   font-weight: 500;
   text-decoration: underline;
@@ -154,5 +159,5 @@ button[type="submit"] mat-icon,
 }
 
 .login-text button:hover {
-  background: #f1f5f9;
+  background: var(--button-primary-bg);
 }

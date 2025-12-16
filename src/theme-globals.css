@@ -40,7 +40,7 @@ mat-card {
 
 /* Dialogs */
 mat-dialog-container {
-  background-color: var(--bg-secondary) !important;
+  background-color: none !important;
   color: var(--text-primary) !important;
 }
 

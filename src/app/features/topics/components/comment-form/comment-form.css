@@ -27,14 +27,19 @@ h3 {
   outline: none;
 }
 
+.input::placeholder {
+  font-family: Roboto;
+  color: var(--text-tertiary);
+}
+
 .bottom {
   display: flex;
   justify-content: flex-end;
 }
 
 .submit-btn {
-  background: #0f172a;
-  color: white;
+  background: var(--button-primary-bg);
+  color: var(--button-primary-text);
   padding: 6px 18px;
   border-radius: 8px;
   font-size: 14px;

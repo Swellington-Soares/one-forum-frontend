@@ -32,6 +32,8 @@ html.light-theme {
   --button-secondary-bg: #e5e7eb;
   --button-secondary-text: #0f172a;
   --card-shadow: rgba(0, 0, 0, 0.1);
+
+  --text-accent: #3b82f6;
 }
 
 // Tema Escuro
@@ -60,6 +62,8 @@ html.dark-theme {
   --button-secondary-bg: #334155;
   --button-secondary-text: #f8fafc;
   --card-shadow: rgba(0, 0, 0, 0.3);
+
+  --text-accent: #3b82f6;
 }
 
 body {

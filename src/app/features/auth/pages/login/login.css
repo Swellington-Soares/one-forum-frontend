@@ -26,7 +26,7 @@
   flex-direction: column;
   justify-content: center;
   padding: 4rem;
-  color: white;
+  color: var(--text-primary);
 }
 
 .right {
@@ -48,7 +48,7 @@
 }
 
 .title p {
-  color: #666;
+  color: var(--text-secondary);
   margin-bottom: 24px;
 }
 
@@ -91,13 +91,13 @@
 .signup {
   margin-top: 1rem;
   text-align: center;
-  color: #666;
+  color: var(--text-secondary);
 }
 
 .signup button {
   background: transparent;
   border: none;
-  color: #0f172a;
+  color: var(--button-primary-text);
   cursor: pointer;
   font-weight: 500;
   text-decoration: underline;
@@ -108,13 +108,13 @@
 }
 
 .signup button:hover {
-  background: #f1f5f9;
+  background: var(--button-primary-bg);
 }
 
 .forgot {
   background: transparent;
   border: none;
-  color: #0f172a;
+  color: var(--button-primary-text);
   cursor: pointer;
   font-size: 12px;
   position: absolute;
@@ -127,7 +127,7 @@
 }
 
 .forgot:hover {
-  background: #f1f5f9;
+  background: var(--button-primary-bg);
 }
 
 .card {
