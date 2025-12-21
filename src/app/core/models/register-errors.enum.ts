@@ -1,0 +1,5 @@
+export enum ErrorTypes {
+    NOT_PERMITTED = "NOT_PERMITTED",
+    EMAIL_NOT_VERIFIED = "EMAIL_NOT_VERIFIED",
+
+}

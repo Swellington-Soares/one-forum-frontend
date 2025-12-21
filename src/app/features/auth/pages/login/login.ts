@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
 import { ChangeDetectionStrategy, computed, WritableSignal } from '@angular/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { ErrorTypes } from '../../../../core/models/register-errors.enum';
 
 @Component({
   selector: 'app-login',
@@ -65,7 +66,7 @@ export class Login {
         const {error} = e;
         this.loading.set(false);
         if (error.status === 403) {
-          if (error.type === 'ACCOUNT_LOCKED') {
+          if (error.type === ErrorTypes.EMAIL_NOT_VERIFIED) {
             await this.router.navigate(['/confirm-account'], {
               state: {
                 email: email,

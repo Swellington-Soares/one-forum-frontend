@@ -20,12 +20,14 @@
       </button>
 
       <a [routerLink]="isLogged() ? '/profile' : '/login'" class="pfp-container">
-        @if (isLogged()) { @if (this.currentUser()?.profilePhoto !== '') {
-        <img [src]="this.currentUser()?.profilePhoto" alt="your profile picture" />
+        @if (isLogged()) { 
+          @if (this.currentUser()?.profilePhoto && this.currentUser()?.profilePhoto != '') {
+            <img [src]="this.currentUser()?.profilePhoto" alt="your profile picture" />
+          } @else {
+            <span>{{ this.getUserInitials() }}</span>
+          } 
         } @else {
-        <span>{{ this.getUserInitials() }}</span>
-        } } @else {
-        <mat-icon>person</mat-icon>
+          <mat-icon>person</mat-icon>
         }
       </a>
     </div>

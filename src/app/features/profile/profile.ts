@@ -19,6 +19,7 @@ import { Topic } from '../../core/models/topics';
 import { PageEvent } from '@angular/material/paginator';
 import { TopicListService } from '../../core/services/topic-list.service';
 import { SkeletonProfileCard } from '../../shared/components/skeleton-profile-card/skeleton-profile-card';
+import * as StringUtils from '../../shared/utils/string.utils';
 
 @Component({
   selector: 'app-profile',
@@ -59,6 +60,8 @@ export class Profile {
   topicsStatusFlag = signal(StatusFlag.OK);
   userTopicsTotalElements = signal(0);
   userTopics: WritableSignal<Topic[]> = signal([]);
+
+  protected readonly StringUtils = StringUtils;
 
 
   constructor() {
@@ -163,14 +166,17 @@ export class Profile {
   }
 
   private uploadPhotoAndUpdate(): void {
-    this.authService.uploadProfile(this.selectedFile!).subscribe({
-      next: (uploadRes: string): void => {
-        this.handlePhotoUploadSuccess(uploadRes);
-      },
-      error: (err): void => {
-        this.handlePhotoUploadError(err);
-      },
-    });
+    this.authService.uploadProfile(this.selectedFile!)
+    .then( res => {
+        res.subscribe({
+          next: (uploadRes: any): void => {
+            this.handlePhotoUploadSuccess(uploadRes.imageUrl);
+          },
+          error: (err): void => {
+            this.handlePhotoUploadError(err.error);
+          },
+        });
+      })
   }
 
   private handlePhotoUploadSuccess(avatarUrl: string): void {
@@ -178,7 +184,7 @@ export class Profile {
   }
 
   private handlePhotoUploadError(err: any): void {
-    console.error('Erro ao enviar foto:', err);
+    console.error('Erro ao enviar foto: ', err);
     this.showMessage('Erro ao enviar foto. Tente novamente.', 'error');
   }
 
