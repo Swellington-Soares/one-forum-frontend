@@ -20,7 +20,13 @@
     <section class="user">
       <mat-card class="user_profile">
         <mat-card-content>
-          <img mat-card-image class="avatar" [src]="user().profilePhoto" />
+          <div class="avatar-container">
+            @if (this.user().profilePhoto && this.user().profilePhoto != '') {
+              <img class="avatar" [src]="this.user().profilePhoto" alt="your profile picture" />
+            } @else {
+              <span>{{ this.StringUtils.getInitials(this.user().profileName) }}</span>
+            } 
+          </div>
           <h3>{{ user().profileName }}</h3>
           <span class="details">{{ user().email }}</span>
         </mat-card-content>
@@ -79,15 +85,21 @@
                 aria-label="Selecionar foto de perfil"
               />
   
+              <div class="avatar-container">
               @if (photoPreview()) {
               <img
                 [src]="photoPreview()"
-                class="avatar-image"
+                class="avatar"
                 alt="Prévia da foto de perfil selecionada"
               />
               } @else {
-              <img [src]="user().profilePhoto" class="avatar-image" alt="Foto de perfil atual" />
-              }
+                  @if (this.user().profilePhoto && this.user().profilePhoto != '') {
+                    <img class="avatar" [src]="this.user().profilePhoto" alt="foto de perfil atual" />
+                  } @else {
+                    <span>{{ this.StringUtils.getInitials(this.user().profileName) }}</span>
+                  } 
+                }
+              </div>
             </label>
           </div>
   
