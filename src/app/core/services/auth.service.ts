@@ -6,6 +6,7 @@ import { LoginRequest, LoginResponse, RegisterRequest, RefreshTokenRequest } fro
 import { TokenService } from './token.service';
 import { inject } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { ImageCompressorService } from './image-compressor.service';
 
 export interface User {
   id: number;
@@ -23,6 +24,8 @@ export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
   private readonly tokenService = inject(TokenService);
+
+  private readonly imageCompressorService = inject(ImageCompressorService);
 
   private readonly baseUrl = environment.apiBaseUrl;
 
@@ -69,10 +72,11 @@ export class AuthService {
     return this.http.post<any>(`${this.baseUrl}/users/register`, data, { observe: 'response' });
   }
 
-  uploadProfile(file: File): Observable<string> {
+  async uploadProfile(file: File) {
+    const compressedFile = await this.imageCompressorService.compressImage(file);
     const form = new FormData();
-    form.append('file', file);
-    return this.http.post(`${this.baseUrl}/upload`, form, { responseType: 'text' });
+    form.append('file', compressedFile);
+    return this.http.post<{imageUrl: string}>(`${this.baseUrl}/upload`, form);
   }
 
   login(data: LoginRequest): Observable<LoginResponse> {

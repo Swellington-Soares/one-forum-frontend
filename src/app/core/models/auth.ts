@@ -13,7 +13,6 @@ export interface RegisterRequest {
   password: string;
   matchPassword: string;
   name: string;
-  avatarUrl: string;
 }
 
 export interface RefreshTokenRequest {

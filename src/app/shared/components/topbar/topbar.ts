@@ -20,7 +20,9 @@ export class Topbar {
   protected themeService = inject(ThemeService);
 
   protected isLogged = toSignal(this.authService.isLogged$);
-  protected currentUser = computed(() => this.authService.currentUser());
+  protected currentUser = computed(() => {
+    return this.authService.currentUser();
+  });
 
   protected getUserInitials(): String {
     return StringUtils.getInitials(this.currentUser()?.profileName) || '';
