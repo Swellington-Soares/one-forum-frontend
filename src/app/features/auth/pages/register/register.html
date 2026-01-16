@@ -1,0 +1,135 @@
+<div class="container" role="main" aria-labelledby="register-title">
+  <div class="left">
+    <div class="box">
+      <h1 id="register-title">Crie sua conta</h1>
+      <p id="register-subtitle" class="subtitle">Inscreva-se para começar</p>
+
+      <form
+        [formGroup]="form"
+        (ngSubmit)="submit()"
+        aria-labelledby="register-title"
+        aria-describedby="register-subtitle"
+        novalidate
+      >
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Nome de usuário</mat-label>
+          <input
+            matInput
+            formControlName="username"
+            autocomplete="given-name"
+            required
+          />
+          @if (form.get('username')?.hasError('required') && form.get('username')?.touched) {
+          <mat-error id="username-error">O nome de usuário é obrigatório.</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            autocomplete="email"
+            inputmode="email"
+            required
+          />
+          @if (form.get('email')?.hasError('required') && form.get('email')?.touched) {
+          <mat-error id="email-required">O email é obrigatório.</mat-error>
+          } @if (form.get('email')?.hasError('email') && form.get('email')?.touched) {
+          <mat-error id="email-invalid">Informe um email válido.</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full">
+          <mat-label>Senha</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="password"
+            autocomplete="new-password"
+            aria-describedby="password-requirements"
+            (focus)="onPasswordFocus()"
+            (blur)="onPasswordBlur()"
+            required
+          />
+        </mat-form-field>
+
+        <div class="password-requirements" id="password-requirements">
+          <p class="requirements-title">A senha deve conter:</p>
+          <ul class="requirements-list">
+            <li [class]="getRequirementStatus(hasMinLength.bind(this))">
+              <mat-icon>{{ getRequirementStatus(hasMinLength.bind(this)) === 'valid' ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
+              <span>6 a 8 caracteres</span>
+            </li>
+            <li [class]="getRequirementStatus(hasLowercase.bind(this))">
+              <mat-icon>{{ getRequirementStatus(hasLowercase.bind(this)) === 'valid' ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
+              <span>Uma letra minúscula</span>
+            </li>
+            <li [class]="getRequirementStatus(hasUppercase.bind(this))">
+              <mat-icon>{{ getRequirementStatus(hasUppercase.bind(this)) === 'valid' ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
+              <span>Uma letra maiúscula</span>
+            </li>
+            <li [class]="getRequirementStatus(hasNumber.bind(this))">
+              <mat-icon>{{ getRequirementStatus(hasNumber.bind(this)) === 'valid' ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
+              <span>Um número</span>
+            </li>
+            <li [class]="getRequirementStatus(hasSymbol.bind(this))">
+              <mat-icon>{{ getRequirementStatus(hasSymbol.bind(this)) === 'valid' ? 'check_circle' : 'radio_button_unchecked' }}</mat-icon>
+              <span>Um símbolo (!@#$%^&*)</span>
+            </li>
+          </ul>
+        </div>
+
+        <mat-form-field appearance="outline" class="full">
+          <mat-label>Confirmar senha</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="confirmPassword"
+            autocomplete="new-password"
+            required
+          />
+
+          @if (form.get('confirmPassword')?.hasError('required') && form.get('confirmPassword')?.touched) {
+          <mat-error id="confirm-required" aria-live="polite">Confirme sua senha.</mat-error>
+          } @if (form.errors?.['passwordsMismatch'] && form.get('confirmPassword')?.touched) {
+          <mat-error id="confirm-mismatch" aria-live="polite">As senhas não coincidem.</mat-error>
+          }
+        </mat-form-field>
+
+        <button
+          mat-flat-button
+          class="full"
+          [disabled]="loading()"
+          type="submit"
+          aria-busy="{{ loading() }}"
+        >
+          {{ loading() ? 'Criando...' : 'Cadastro' }}
+        </button>
+      </form>
+
+      <p class="login-text">
+        Já possui uma conta?
+        <button
+          mat-button
+          color="primary"
+          (click)="goToLogin()"
+          aria-label="Ir para a página de login"
+        >
+          Sign in
+        </button>
+      </p>
+    </div>
+  </div>
+
+  <div class="right" role="complementary" aria-labelledby="community-title">
+    <div class="overlay">
+      <h2 id="community-title">Junte-se à nossa comunidade!</h2>
+      <p>
+        Faça parte da comunidade Oracle Next Education. Aprenda, compartilhe e cresça com milhares
+        de estudantes.
+      </p>
+    </div>
+  </div>
+</div>

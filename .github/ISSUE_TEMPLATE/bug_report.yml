@@ -1,0 +1,98 @@
+name: 🐞 Bug Report
+description: Reporte um bug, melhoria ou solicitação
+title: "[BUG] "
+labels: ["bug"]
+assignees: []
+body:
+
+  - type: checkboxes
+    id: issue_type
+    attributes:
+      label: 📌 Tipo da Issue
+      description: Marque com um X
+      options:
+        - label: Bug
+        - label: Melhoria
+        - label: Nova funcionalidade
+        - label: Dúvida
+        - label: Documentação
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 📝 Descrição
+      description: Descreva claramente o que está acontecendo ou o que precisa ser feito.
+      placeholder: Explique o problema ou solicitação...
+    validations:
+      required: true
+
+  - type: textarea
+    id: location
+    attributes:
+      label: 📍 Página / Local
+      description: Informe onde ocorre o problema
+      value: |
+        Rota/URL:
+        Componente:
+        Tela/Fluxo:
+    validations:
+      required: false
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 🔁 Passos para Reproduzir (se for bug)
+      description: Liste os passos necessários para reproduzir o problema
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: false
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: ✅ Comportamento Esperado
+      description: Explique o que deveria acontecer.
+    validations:
+      required: false
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: ❌ Comportamento Atual
+      description: Explique o que está acontecendo atualmente.
+    validations:
+      required: false
+
+  - type: textarea
+    id: media
+    attributes:
+      label: 🖼️ Prints / Vídeos
+      description: Adicione imagens ou gravações que ajudem a entender o problema.
+    validations:
+      required: false
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: 💻 Ambiente
+      description: Informe os dados do ambiente
+      value: |
+        Navegador:
+        Dispositivo:
+        Sistema operacional:
+        Versão da aplicação:
+    validations:
+      required: false
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: 📎 Observações Extras
+      description: Qualquer contexto adicional, links, referências ou ideias.
+    validations:
+      required: false

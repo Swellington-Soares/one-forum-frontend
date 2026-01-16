@@ -1,0 +1,57 @@
+<div class="bg-page">
+  <div class="card">
+    <div class="card-content">
+      @if (!notIsConfirmed()) {
+      <div class="icon-circle icon-success">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-12 h-12 text-green-600"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+        </svg>
+      </div>
+
+      <h1 class="title">E-mail confirmado!</h1>
+      <p class="text">
+        Seu e-mail foi verificado com sucesso. Agora você já pode acessar sua conta e aproveitar todos os recursos.
+      </p>
+
+      <button mat-flat-button color="primary" class="btn" (click)="goToLogin()">
+        Fazer Login
+      </button>
+
+      } @else {
+
+      <div class="icon-circle icon-error">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-12 h-12 text-red-600"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </div>
+
+      <h1 class="title">Confirme seu e-mail</h1>
+      <p class="text">
+        Enviamos um link de confirmação para o seu e-mail. Por favor, verifique sua caixa de entrada e clique no link para ativar sua conta.
+      </p>
+      <p class="text" style="margin-top: 1rem; font-size: 0.9rem;">
+        Não recebeu o e-mail? Verifique sua pasta de spam ou clique no botão abaixo para reenviar.
+      </p>
+
+      <button mat-flat-button color="primary" class="btn" (click)="resendConfirmationEmail()" [disabled]="loading()">
+        {{ loading() ? 'Enviando...' : 'Reenviar E-mail de Confirmação' }}
+      </button>
+
+      }
+    </div>
+  </div>
+</div>

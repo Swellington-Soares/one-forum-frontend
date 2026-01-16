@@ -1,0 +1,78 @@
+<div class="container">
+    @if (filtersCard()) {
+        <aside class="filters-container">
+            <app-filters-card></app-filters-card>
+        </aside>
+    }
+    <div class="main-content-container">
+        @if (topActions()) {
+            <div class="top-actions">
+                <div class="ownership-filter-toggle">
+                    <button 
+                        [class.btn-filled]="this.activeAuthorFilter() === 'all'"
+                        [class.btn-text]="this.activeAuthorFilter() !== 'all'"
+                        (click)="updateAuthorFilter('all')">
+                            <span>Todos</span>
+                    </button>
+                    <button 
+                        [class.btn-filled]="this.activeAuthorFilter() === 'user'"
+                        [class.btn-text]="this.activeAuthorFilter() !== 'user'"
+                        [disabled]="!this.isLogged()" 
+                        (click)="updateAuthorFilter('user')">
+                            Meus tópicos
+                    </button>
+                </div>
+                <div class="sort-options">
+                    <button 
+                        [class.btn-filled]="this.activeSort() === 'date'"
+                        [class.btn-text]="this.activeSort() !== 'date'"
+                        (click)="updateSortList('date')">
+                            <mat-icon>schedule</mat-icon>
+                            <span>Mais recente</span>
+                    </button>
+                    <button 
+                        [class.btn-filled]="this.activeSort() === 'moreLiked'"
+                        [class.btn-text]="this.activeSort() !== 'moreLiked'"
+                        (click)="updateSortList('moreLiked')">
+                            <mat-icon>thumb_up</mat-icon>
+                            <span>Mais curtido</span>
+                    </button>
+                </div>
+            </div>
+        }
+        @if (this.statusFlag() === StatusFlagEnum.OK && this.totalElements() > 0) {
+            @for (topic of this.topics(); track $index) {
+                <app-topic-card [topic]="topic"></app-topic-card>
+            }
+            <div class="pages-list">
+                <mat-paginator
+                    [length]="this.totalElements()"
+                    [pageIndex]="this.pageIndex()"
+                    [pageSize]="this.pageSize()"
+                    [pageSizeOptions]="[5, 10, 25, 50]"
+                    [showFirstLastButtons]="true"
+                    (page)="updatePage($event)"
+                ></mat-paginator>
+            </div>  
+        }
+        @else {
+            @if (this.statusFlag() === StatusFlagEnum.LOADING) {
+                @for (item of [1, 2, 3, 4, 5]; track item) {
+                    <skeleton-topic-card></skeleton-topic-card>
+                }
+            }
+            @else {
+                <div class="message-topic-list-container">
+                    @if (this.statusFlag() === StatusFlagEnum.ERROR) {
+                        <mat-icon class="fail-icon">web_asset_off</mat-icon>
+                        <p>Não foi possível recuperar os tópicos</p>
+                    }
+                    @else {
+                        <mat-icon class="fail-icon">question_mark</mat-icon>
+                        <p>{{ emptyTopicsMessage() }}</p>
+                    }
+                </div>
+            }
+        }
+    </div>
+</div>

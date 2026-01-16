@@ -1,0 +1,36 @@
+<div class="container">
+  <nav class="nav-and-actions" aria-label="Navegação e ações principais">
+    <div class="buttons-row">
+      <div class="nav-buttons-container" role="group" aria-label="Navegação de visualização">
+        <button matButton="filled" aria-label="Visualizar feed de tópicos" aria-current="page">
+          <mat-icon aria-hidden="true">tab</mat-icon>
+          <span>Feed</span>
+        </button>
+      </div>
+      <button
+        matButton="elevated"
+        [disabled]="!isLogged()"
+        (click)="openCreateTopicDialog()"
+        aria-label="Criar novo tópico"
+      >
+        Criar tópico
+      </button>
+    </div>
+    <app-search-bar placeholder="Pesquise por título ou nome do autor"></app-search-bar>
+  </nav>
+  <main aria-label="Lista de tópicos">
+    <app-topic-list 
+      [isLogged]="isLogged() ?? false" 
+      [statusFlag]="statusFlag()"
+      [topics]="topics()"
+      [totalElements]="totalElements()"
+      [pageIndex]="pageIndex()"
+      [pageSize]="pageSize()"
+      [activeSort]="activeSort()"
+      [activeAuthorFilter]="activeAuthorFilter()"
+      (authorFilterChange)="handleAuthorFilterChange($event)"
+      (sortListChange)="handleSortListChange($event)"
+      (paginationChange)="handlePaginationChange($event)"
+    ></app-topic-list>
+  </main>
+</div>

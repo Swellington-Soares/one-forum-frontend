@@ -1,0 +1,56 @@
+<div class="card" role="article">
+  <div class="top-row">
+    <div class="user-info">
+      <div class="avatar" aria-label="User profile photo">
+        @if (comment().userProfilePhoto) {
+        <img
+          [src]="comment().userProfilePhoto"
+          alt="Profile photo of {{ comment().userProfileName }}"
+        />
+        } @else {
+        <div class="avatar-fallback" aria-label="User initials">
+          {{ getInitials(comment().userProfileName) }}
+        </div>
+        }
+      </div>
+
+      <div class="details">
+        <a [routerLink]="'/profile/' + comment().author.id" class="name" id="comment-title-{{ comment().id }}">{{ comment().userProfileName }}</a>
+        <span class="time">{{ comment().createdAt | date : 'dd/MM/yyyy HH:mm' }}</span>
+      </div>
+    </div>
+
+    @if (showButtons()) {
+    <div class="buttons">
+      @if (!isEditing()) {
+      <button matIconButton aria-label="Edit your comment" (click)="startEdit()">
+        <mat-icon>edit</mat-icon>
+      </button>
+      }
+      <button class="delete-btn" matIconButton aria-label="Delete this comment" (click)="delete()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+    }
+  </div>
+
+  @if (!isEditing()) {
+  <p class="text" aria-label="Comment content">{{ comment().content }}</p>
+  } @if (isEditing()) {
+  <textarea
+    class="edit-box"
+    [(ngModel)]="editContent"
+    rows="4"
+    aria-label="Edit comment content"
+  ></textarea>
+
+  <div class="edit-actions">
+    <button mat-raised-button color="primary" (click)="saveEdit()" aria-label="Save changes">
+      Salvar
+    </button>
+    <button mat-raised-button color="warn" (click)="cancelEdit()" aria-label="Cancel editing">
+      Cancelar
+    </button>
+  </div>
+  }
+</div>

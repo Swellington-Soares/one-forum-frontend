@@ -1,0 +1,163 @@
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.left {
+  flex: 1.1;
+  background-image: url('https://images.unsplash.com/photo-1558565629-637cdf4818ae?auto=format&fit=crop&w=1200&q=80');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .left {
+    display: block;
+  }
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.8), rgba(168, 85, 247, 0.8));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem;
+  color: #FFFFFF;
+}
+
+.right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.card {
+  width: 100%;
+  max-width: 380px;
+}
+
+.title h1 {
+  font-size: 28px;
+  margin-bottom: 4px;
+}
+
+.title p {
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+.full {
+  width: 100%;
+}
+
+.btn {
+  margin-top: 10px;
+  height: 48px;
+  background: var(--button-primary-bg);
+  color: var(--button-primary-text);
+  padding: 6px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-transform: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+  width: 100%;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn mat-icon {
+  font-size: 18px;
+}
+
+.signup {
+  margin-top: 1rem;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.signup button {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: underline;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.signup button:hover {
+  background: var(--button-primary-bg);
+  color: var(--button-primary-text);
+}
+
+.forgot {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: 12px;
+  position: absolute;
+  right: 0.75rem;
+  top: -1.8rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  text-decoration: underline;
+  transition: background 0.2s;
+}
+
+.forgot:hover {
+  background: var(--button-primary-bg);
+  color: var(--button-primary-text);
+}
+
+.card {
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.title h1 {
+  margin-bottom: 8px;
+}
+
+.title p {
+  margin-bottom: 24px;
+}
+
+.btn {
+  margin-top: 8px;
+}
+
+.right {
+  padding: 32px;
+}

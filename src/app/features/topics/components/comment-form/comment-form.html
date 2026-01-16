@@ -1,0 +1,28 @@
+<div class="card" role="form" aria-labelledby="commentFormTitle">
+  <h3 id="commentFormTitle">Faça um comentário</h3>
+
+  <textarea 
+    class="input" 
+    placeholder="Escreva seu comentário aqui..." 
+    [ngModel]="text()"
+    (ngModelChange)="text.set($event)"
+    [maxlength]="MAX_COMMENT_LENGTH"
+    aria-label="Campo de comentário" 
+    required>
+  </textarea>
+
+  <div class="character-count" aria-live="polite">
+    {{ characterCount() }} / {{ MAX_COMMENT_LENGTH }} caracteres
+  </div>
+
+  <div class="bottom">
+    <button 
+      class="submit-btn" 
+      mat-button 
+      (click)="submit()" 
+      aria-label="Enviar comentário">
+      <mat-icon>send</mat-icon>
+      Envie seu comentário
+    </button>
+  </div>
+</div>

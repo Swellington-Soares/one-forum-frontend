@@ -2,15 +2,11 @@ export interface TopicCategory {
   name: string;
 }
 
-export interface TopicUserProfile {
-  name: string;
-  photo: string | null;
-}
-
 export interface TopicUser {
   id: number;
   createdAt: string;
-  profile: TopicUserProfile;
+  profileName: string;
+  profilePhoto?: string;
 }
 
 export interface Topic {
@@ -19,10 +15,10 @@ export interface Topic {
   likes: number;
   content: string | null;
   likedByCurrentUser: boolean;
-  user: any;
+  author: TopicUser;
   createdAt: string;
   updatedAt: string;
-  categories: TopicCategory[];
+  categories: string[];
 }
 
 export interface TopicCreateRequest {

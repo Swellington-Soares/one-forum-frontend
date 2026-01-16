@@ -1,0 +1,129 @@
+/* ============================================
+   VARIÁVEIS DE TEMA GLOBAL
+   ============================================ */
+
+/* Aplica transições suaves em todos os elementos que usam variáveis de tema */
+* {
+  transition-property: background-color, color, border-color, box-shadow;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+
+/* Remove transição de elementos que não devem ter */
+*:focus,
+*:active,
+input,
+textarea,
+select {
+  transition-property: none;
+}
+
+/* ============================================
+   COMPONENTES GLOBAIS
+   ============================================ */
+
+/* Body e HTML */
+html {
+  background-color: var(--bg-primary);
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Cards do Material */
+mat-card {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Dialogs */
+mat-dialog-container {
+  background-color: none !important;
+  color: var(--text-primary) !important;
+}
+
+/* Form Fields */
+mat-form-field {
+  color: var(--text-primary) !important;
+}
+
+mat-label {
+  color: var(--text-secondary) !important;
+}
+
+/* Inputs */
+input,
+textarea {
+  color: var(--text-primary) !important;
+}
+
+/* Select */
+mat-select {
+  color: var(--text-primary) !important;
+}
+
+mat-option {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+mat-option:hover {
+  background-color: var(--bg-tertiary) !important;
+}
+
+/* Expansion Panel */
+mat-expansion-panel {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Divider */
+mat-divider {
+  border-color: var(--border-color) !important;
+}
+
+/* Snackbar */
+.mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: var(--bg-secondary);
+  --mat-snack-bar-button-color: var(--button-primary-bg);
+}
+
+/* Menu */
+.mat-mdc-menu-panel {
+  background-color: var(--bg-secondary) !important;
+}
+
+.mat-mdc-menu-item {
+  color: var(--text-primary) !important;
+}
+
+.mat-mdc-menu-item:hover {
+  background-color: var(--bg-tertiary) !important;
+}
+
+/* Tooltip */
+.mat-mdc-tooltip {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Scrollbar - apenas para navegadores webkit */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-tertiary);
+}

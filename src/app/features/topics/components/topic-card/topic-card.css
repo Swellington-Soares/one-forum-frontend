@@ -1,6 +1,6 @@
 .topic-card {
-  background: white;
-  border: 1px solid #e5e7eb;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
   padding: 16px 20px;
   border-radius: 10px;
   display: flex;
@@ -17,7 +17,7 @@
 .topic-header mat-card-title {
   font-size: 20px;
   font-weight: 500;
-  color: #0f172a;
+  color: var(--text-primary);
 }
 
 .action-buttons {
@@ -36,15 +36,34 @@
 }
 
 .tag {
-  background: #eceef2;
+  background: var(--bg-tertiary);
   font-size: 12px;
 }
 
 .topic-text {
   font-size: 15px;
-  color: #334155;
+  color: var(--text-secondary);
   line-height: 1.5;
   margin: 6px 0 18px 0;
+}
+
+.topic-content {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.content-wrapper {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+.content-wrapper * {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .topic-footer {
@@ -61,16 +80,26 @@
   gap: 12px;
 }
 
-.avatar-text {
+.avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  overflow: hidden;
   background: #e2e8f0;
-  color: #334155;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-fallback {
   font-weight: 600;
+  color: #334155;
 }
 
 .details {
@@ -80,14 +109,19 @@
 
 .name {
   font-weight: 600;
-  color: #0f172a;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.name:hover {
+  color: var(--text-accent);
 }
 
 .date {
   display: flex;
   align-items: center;
   gap: 4px;
-  color: #64748b;
+  color: var(--text-secondary);
   font-size: 13px;
 }
 
@@ -104,16 +138,16 @@
 }
 
 .like-btn {
-  color: #0f172a;
+  color: var(--text-primary);
 }
 
 .like-btn.liked {
-  color: #3b82f6;
+  color: var(--text-accent);
 }
 
-.answers-info {
+.comments-info {
   display: flex;
   align-items: center;
   gap: 4px;
-  color: #64748b;
+  color: var(--text-secondary);
 }

@@ -1,0 +1,7 @@
+<h3 aria-live="polite">{{ comments().length }} Resposta{{ comments().length !== 1 ? 's' : '' }}</h3>
+
+@if (comments().length === 0) {
+    <no-comments-card></no-comments-card>
+} @else { @for (comment of comments(); track $index) {
+    <comment-card [comment]="comment" (deleteComment)="deleteComment.emit(comment.id)"></comment-card>
+} }

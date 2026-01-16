@@ -1,0 +1,80 @@
+<div class="splash-container" role="main" aria-label="Página inicial do One Forum">
+
+  <div class="bg-split" aria-hidden="true">
+    <img
+      class="left"
+      src="https://images.unsplash.com/photo-1653564142048-d5af2cf9b50f?q=80&w=1080"
+      alt=""
+    />
+
+    <img
+      class="right"
+      src="https://images.unsplash.com/photo-1567641091594-71640a68f847?q=80&w=1080"
+      alt=""
+    />
+  </div>
+
+  <div class="overlay" aria-hidden="true"></div>
+
+  <div class="content">
+    <header class="header">
+      <div class="logo-box" aria-label="Logo One Forum">
+        <img src="assets/ONE.png" alt="One Forum" class="logo-img">
+      </div>
+
+      <h1>One Forum</h1>
+
+      <p class="subtitle">
+        A plataforma da comunidade Oracle Next Education para conectar, aprender e crescer juntos.
+      </p>
+    </header>
+
+    <section class="cards" aria-label="Recursos principais">
+      <article class="feature-card">
+        <div class="icon-wrapper blue" aria-hidden="true">
+          <mat-icon>groups</mat-icon>
+        </div>
+        <h3>Conecte-se</h3>
+        <p>Crie conexões com colegas do programa Oracle Next Education</p>
+      </article>
+
+      <article class="feature-card">
+        <div class="icon-wrapper purple" aria-hidden="true">
+          <mat-icon>menu_book</mat-icon>
+        </div>
+        <h3>Aprenda</h3>
+        <p>Compartilhe conhecimento, tire dúvidas e descubra soluções em conjunto</p>
+      </article>
+
+      <article class="feature-card">
+        <div class="icon-wrapper green" aria-hidden="true">
+          <mat-icon>trending_up</mat-icon>
+        </div>
+        <h3>Cresça</h3>
+        <p>Desenvolva suas habilidades e avance sua carreira em tecnologia</p>
+      </article>
+    </section>
+
+    <nav class="actions" aria-label="Ações principais">
+      <button 
+        color="primary" 
+        class="big-btn" 
+        (click)="goSignUp()"
+        aria-label="Criar uma nova conta">
+        <mat-icon aria-hidden="true">person_add</mat-icon>
+        Comece agora
+      </button>
+      <button 
+        class="big-btn outline" 
+        (click)="goLogin()"
+        aria-label="Entrar na sua conta">
+        <mat-icon aria-hidden="true">login</mat-icon>
+        Entrar
+      </button>
+    </nav>
+
+    <footer class="footer">
+      <p>Junte-se a milhares de estudantes construindo seu futuro em tecnologia</p>
+    </footer>
+  </div>
+</div>

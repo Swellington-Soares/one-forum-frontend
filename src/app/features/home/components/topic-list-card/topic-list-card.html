@@ -1,0 +1,51 @@
+<mat-card (click)="this.redirectTo()">
+    @if (!isHandheld()) {
+        <div class="stats-container">
+            <div class="stat">
+                <span class="value">{{this.topic().likes}}</span>
+                <span class="label">curtidas</span>
+            </div>
+        </div>
+    }
+    <div class="card-content-container">
+        <mat-card-header>
+            <mat-card-title>{{this.topic().title}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <p>{{ topicResume() }}</p>
+        </mat-card-content>
+        <mat-card-footer>
+            <div>
+                <mat-chip-set>
+                    @for (category of this.categoriesShown(); track $index) {
+                        <mat-chip>{{category}}</mat-chip>
+                    }
+                    @if (this.categoriesHidden()) {
+                        <mat-chip [matTooltip]="this.categoriesHiddenString()" matTooltipClass="tooltip-class">{{this.categoriesHidden()!.length}}+</mat-chip>
+                    }
+                </mat-chip-set>
+            </div>
+            <div class="user-info">
+                <div class="pfp-container">
+                    @if (this.topic().author.profilePhoto) {
+                        <img [src]="this.topic().author.profilePhoto" alt="">
+                    }
+                    @else {
+                        <span>{{this.topic().author.profileName.slice(0, 2).toUpperCase()}}</span>
+                    }
+                </div>
+                <span>{{this.topic().author.profileName}}</span>
+                <span> · </span>
+                <span>{{this.createdAt().toLocaleDateString()}}</span>
+            </div>
+            @if (isHandheld()) {
+                <div class="stats-container">
+                    <div class="stat">
+                        <span class="value">{{this.topic().likes}}</span>
+                        <span class="label">curtidas</span>
+                    </div>
+                </div>
+            }
+        </mat-card-footer>
+    </div>
+</mat-card>
