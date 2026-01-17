@@ -16,6 +16,6 @@ export class UserService {
     }
 
     editUser(id: number, data: UserEditRequest): Observable<User> {
-        return this.http.patch<User>(`${this.apiUrl}/${id}`, data);
+        return this.http.put<User>(`${this.apiUrl}/update-profile`, data);
     }
 }

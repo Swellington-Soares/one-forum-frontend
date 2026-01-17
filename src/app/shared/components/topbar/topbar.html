@@ -21,7 +21,7 @@
 
       <a [routerLink]="isLogged() ? '/profile' : '/login'" class="pfp-container">
         @if (isLogged()) { @if (this.currentUser()?.profilePhoto !== '') {
-        <img [src]="this.currentUser()?.profilePhoto" alt="your profile picture" />
+        <img [src]="this.getCurrentPfp()" alt="your profile picture" />
         } @else {
         <span>{{ this.getUserInitials() }}</span>
         } } @else {

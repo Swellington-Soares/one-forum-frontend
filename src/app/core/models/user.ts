@@ -17,5 +17,5 @@ export interface Profile {
 
 export interface UserEditRequest {
     name?: string | null;
-    photo?: string | null;
+    bio?: string | null;
 }
