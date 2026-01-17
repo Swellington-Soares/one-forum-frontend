@@ -12,6 +12,7 @@ export interface User {
   email: string;
   profileName: string;
   profilePhoto: string;
+  profileBio: string,
   topicCreatedCount: number;
   commentsCount: number;
   createdAt: string;
@@ -32,6 +33,7 @@ export class AuthService {
   readonly isLogged$ = this.isLoggedSubject.asObservable();
 
   readonly currentUser = signal<User | null>(null);
+  currentPfp = signal<string | null>(null);
 
   authCheckCompleted = signal(false);
 
@@ -46,6 +48,7 @@ export class AuthService {
     this.fetchUser(id).subscribe({
       next: (user) => {
         this.authCheckCompleted.set(true)
+        this.currentPfp.set(user.profilePhoto);
         return this.currentUser.set(user)
       },
       error: () => {
@@ -69,10 +72,18 @@ export class AuthService {
     return this.http.post<any>(`${this.baseUrl}/users/register`, data, { observe: 'response' });
   }
 
-  uploadProfile(file: File): Observable<string> {
+  uploadProfilePicture(file: File): Observable<string> {
     const form = new FormData();
     form.append('file', file);
-    return this.http.post(`${this.baseUrl}/upload`, form, { responseType: 'text' });
+    const reader = new FileReader();
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        if (e.target?.result) {
+          const imageUrl = e.target.result as string;
+          this.currentPfp.set(imageUrl);
+        }
+      };
+      reader.readAsDataURL(file);
+    return this.http.put(`${this.baseUrl}/upload`, form, { responseType: 'text' });
   }
 
   login(data: LoginRequest): Observable<LoginResponse> {

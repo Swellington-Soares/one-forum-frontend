@@ -126,6 +126,7 @@ mat-card-header{
 }
 
 .information_data{
+    min-height: 1rem;
     padding: 12px;
     background-color: var(--bg-tertiary);
     color: var(--text-secondary);
@@ -135,6 +136,12 @@ mat-card-header{
 
 .details{
     font-size: 14px;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+}
+
+.bio {
+    font-size: 16px;
     color: var(--text-secondary);
     transition: color 0.3s ease;
 }

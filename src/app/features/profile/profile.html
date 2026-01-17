@@ -20,9 +20,10 @@
     <section class="user">
       <mat-card class="user_profile">
         <mat-card-content>
-          <img mat-card-image class="avatar" [src]="user().profilePhoto" />
+          <img mat-card-image class="avatar" [src]="this.getCurrentPfp()" />
           <h3>{{ user().profileName }}</h3>
           <span class="details">{{ user().email }}</span>
+          <p class="bio">{{ user().profileBio }}</p>
         </mat-card-content>
       </mat-card>
 
@@ -98,6 +99,11 @@
             <mat-error>O nome é obrigatório.</mat-error>
             }
           </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full">
+            <mat-label>Bio</mat-label>
+            <input matInput formControlName="bio" autocomplete="bio" />
+          </mat-form-field>
   
           <div class="form-actions">
             <button type="button" class="profile_button" (click)="cancelEdit()">Cancelar</button>
@@ -110,6 +116,10 @@
         <div class="information_body">
           <span>Nome de Usuário</span>
           <p class="information_data">{{ user().profileName }}</p>
+        </div>
+        <div class="information_body">
+          <span>Bio</span>
+          <p class="information_data">{{ user().profileBio }}</p>
         </div>
         }
       </mat-card>

@@ -29,4 +29,8 @@ export class Topbar {
   protected toggleTheme(): void {
     this.themeService.toggleTheme();
   }
+
+  getCurrentPfp() {
+    return this.authService.currentPfp();
+  }
 }

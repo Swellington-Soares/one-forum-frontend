@@ -48,13 +48,16 @@ export class Profile {
   private readonly userService = inject(UserService);
   private readonly snackBar = inject(MatSnackBar);
   private readonly topicListService = inject(TopicListService);
+
   protected user: WritableSignal<User> = signal({} as User);
   protected isEditing = signal(false);
   protected isLoadingProfile = signal(false);
   protected photoPreview = signal<string | null>(null);
   protected profileForm!: FormGroup;
+
   private selectedFile: File | null = null;
   protected isOwnProfile = signal(true);
+  private acceptedProfilePhotoTypes = ["image/jpeg", "image/jpg", "image/png"];
 
   topicsStatusFlag = signal(StatusFlag.OK);
   userTopicsTotalElements = signal(0);
@@ -64,6 +67,7 @@ export class Profile {
   constructor() {
     this.profileForm = this.fb.group({
       name: ['', Validators.required],
+      bio: [''],
       photo: [''],
     });
 
@@ -124,6 +128,7 @@ export class Profile {
     this.selectedFile = null;
     this.profileForm.patchValue({
       name: this.user().profileName,
+      bio: this.user().profileBio,
       photo: this.user().profilePhoto,
     });
   }
@@ -155,17 +160,21 @@ export class Profile {
   saveProfile(): void {
     if (this.profileForm.valid) {
       if (this.selectedFile) {
-        this.uploadPhotoAndUpdate();
+        if (this.acceptedProfilePhotoTypes.find(type => type == this.selectedFile!.type)) {
+          this.uploadPhotoAndUpdate();
+          return;
+        }
+        this.showMessage('Tipo de imagem inválido. Tipos permitidos: JPEG, JPG, PNG', 'error')
       } else {
-        this.updateProfile(this.user().profilePhoto);
+        this.updateProfile();
       }
     }
   }
 
   private uploadPhotoAndUpdate(): void {
-    this.authService.uploadProfile(this.selectedFile!).subscribe({
-      next: (uploadRes: string): void => {
-        this.handlePhotoUploadSuccess(uploadRes);
+    this.authService.uploadProfilePicture(this.selectedFile!).subscribe({
+      next: () => {
+        this.handlePhotoUploadSuccess();
       },
       error: (err): void => {
         this.handlePhotoUploadError(err);
@@ -173,8 +182,8 @@ export class Profile {
     });
   }
 
-  private handlePhotoUploadSuccess(avatarUrl: string): void {
-    this.updateProfile(avatarUrl);
+  private handlePhotoUploadSuccess(): void {
+    this.updateProfile();
   }
 
   private handlePhotoUploadError(err: any): void {
@@ -182,10 +191,10 @@ export class Profile {
     this.showMessage('Erro ao enviar foto. Tente novamente.', 'error');
   }
 
-  private updateProfile(photoUrl: string): void {
+  private updateProfile(): void {
     const data = {
       name: this.profileForm.value.name,
-      photo: photoUrl,
+      bio: this.profileForm.value.bio || ""
     };
 
     this.userService.editUser(this.user().id, data).subscribe({
@@ -198,12 +207,12 @@ export class Profile {
     });
   }
 
-  private handleUpdateSuccess(data: { name: string; photo: string }): void {
+  private handleUpdateSuccess(data: { name: string; bio: string }): void {
     const currentUser = this.user();
     this.user.set({
       ...currentUser,
       profileName: data.name,
-      profilePhoto: data.photo,
+      profileBio: data.bio
     });
 
     this.authService.updateUserData();
@@ -263,5 +272,9 @@ export class Profile {
 
   return() {
     this.location.back();
+  }
+
+  getCurrentPfp() {
+    return this.authService.currentPfp()
   }
 }
