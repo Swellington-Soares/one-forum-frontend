@@ -74,6 +74,7 @@
   margin-left: 50px;
   font-size: 15px;
   color: var(--text-primary);
+  overflow-wrap: break-word;
 }
 
 .delete-btn mat-icon {
